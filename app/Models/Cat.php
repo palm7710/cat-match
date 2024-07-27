@@ -37,4 +37,8 @@ class Cat extends Authenticatable
     {
         return $this->hasManyThrough(Reaction::class, User::class, 'id', 'from_user_id', 'id', 'id');
     }
+    public function isCat()
+    {
+        return true; // Catモデルは常にtrueを返す
+    }
 }

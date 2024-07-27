@@ -1,8 +1,7 @@
 <?php
-
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateReactionsTable extends Migration
 {
@@ -15,14 +14,13 @@ class CreateReactionsTable extends Migration
     {
         Schema::create('reactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('to_cat_id');
-            $table->unsignedBigInteger('from_user_id');
-            $table->tinyInteger('status'); // 1: like, 0: dislike
+            $table->unsignedBigInteger('cat_id');
+            $table->unsignedBigInteger('user_id');
+            $table->boolean('status');
             $table->timestamps();
 
-            // Foreign key constraints
-            $table->foreign('to_cat_id')->references('id')->on('cats')->onDelete('cascade');
-            $table->foreign('from_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('cat_id')->references('id')->on('cats')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

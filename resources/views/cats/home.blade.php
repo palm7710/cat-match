@@ -3,7 +3,7 @@
 @section('content')
 
 <script>
-  var usersNum = {{ $matching_users_count }};
+  var catsNum = {{ $matching_users_count }};
   var from_user_id = {{ Auth::id() }};
 </script>
 
@@ -11,7 +11,7 @@
   <nav class="nav">
     <ul>
       <li class="personIcon">
-        <a href="/users/show/{{ Auth::id() }}"><i class="fas fa-user fa-2x"></i></a></li>
+        <a href="/cats/show/{{ Auth::id() }}"><i class="fas fa-user fa-2x"></i></a></li>
       <li class="appIcon"><a href="{{ route('cat.home') }}"><img src="/storage/images/techpit-match-icon.png"></a></li>
       <li class="messageIcon"><a href="{{route('cat.matching')}}"><i class="fas fa-2x fa-comments"></a></i></li>
     </ul>

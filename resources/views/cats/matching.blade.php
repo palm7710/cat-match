@@ -2,36 +2,24 @@
 
 @section('content')
 
-<script>
-  var usersNum = {{ $match_users_count }};
-  var from_user_id = {{ Auth::id() }};
-</script>
-
-<div class="topPage">
-  <nav class="nav">
-    <ul>
-      <li class="personIcon">
-        <a href="/users/show/{{ Auth::id() }}"><i class="fas fa-user fa-2x"></i></a></li>
-      <li class="appIcon"><a href="{{ route('cat.home') }}"><img src="/storage/images/techpit-match-icon.png"></a></li>
-      <li class="messageIcon"><a href="{{ route('cat.matching') }}"><i class="fas fa-2x fa-comments"></i></a></li>
-    </ul>
-  </nav>
-  <div id="tinderslide">
-    <ul>
-        @foreach($matching_users as $user)
-        <li data-user_id="{{ $user->id }}">
-          <div class="userName">{{ $user->name }}</div>
-          <img src="/storage/images/{{ $user->img_name }}">
-          <div class="like"></div>
-          <div class="dislike"></div>
-        </li>
+<div class="matchingPage">
+  <header class="header">
+    <i class="fas fa-comments fa-3x"></i>
+    <div class="header_logo"><a href="{{ route('cat.home') }}"><img src="/storage/images/techpit-match-icon.png"></a></div>
+  </header>
+  <div class="container">
+    <div class="mt-5">
+      <div class="matchingNum">{{ $match_users_count }}人とマッチングしています</div>
+      <h2 class="pageTitle">マッチングしたユーザー一覧</h2>
+      <div class="matchingList">
+      @foreach($matching_users as $user)
+          <div class="matchingPerson">
+          <div class="matchingPerson_img"><img src="/storage/images/{{ $user->img_name }}"></div>
+            <div class="matchingPerson_name">{{ $user->name }}</div>
+          </div>
         @endforeach
-    </ul>
-    <div class="noUser">近くにお相手がいません。</div>
-  </div>
-  <div class="actions" id="actionBtnArea">
-      <a href="#" class="dislike"><i class="fas fa-times fa-2x"></i></a>
-      <a href="#" class="like"><i class="fas fa-heart fa-2x"></i></a>
+      </div>
+    </div>
   </div>
 </div>
 

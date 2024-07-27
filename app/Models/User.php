@@ -64,6 +64,6 @@ class User extends Authenticatable
     }
     public function isCat()
     {
-        return $this->role === 'cat';
+        return false;
     }
 }

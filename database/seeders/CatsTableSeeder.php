@@ -16,7 +16,7 @@ class CatsTableSeeder extends Seeder
         DB::table('cats')->insert([
             [
                 'name' => 'タマ',
-                'sex' => '0',
+                'sex' => 0,
                 'breed' => '雑種',
                 'self_introduction' => 'タマです。よろしくお願いします。',
                 'img_name' => 'cat001.jpg',
@@ -26,7 +26,7 @@ class CatsTableSeeder extends Seeder
             ],
             [
                 'name' => 'ミケ',
-                'sex' => '1',
+                'sex' => 1,
                 'breed' => '三毛猫',
                 'self_introduction' => 'ミケです。お世話になります。',
                 'img_name' => 'cat002.jpg',
@@ -36,7 +36,7 @@ class CatsTableSeeder extends Seeder
             ],
             [
                 'name' => 'クロ',
-                'sex' => '0',
+                'sex' => 0,
                 'breed' => '黒猫',
                 'self_introduction' => 'クロです。よろしくお願いします。',
                 'img_name' => 'cat003.jpg',
@@ -46,7 +46,7 @@ class CatsTableSeeder extends Seeder
             ],
             [
                 'name' => 'シロ',
-                'sex' => '0',
+                'sex' => 0,
                 'breed' => '白猫',
                 'self_introduction' => 'シロです。よろしくお願いします。',
                 'img_name' => 'cat004.jpg',

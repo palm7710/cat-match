@@ -1,5 +1,5 @@
-var currentCatIndex = 0;
-var postReaction = function (to_cat_id, reaction) {
+var currentUserIndex = 0;
+var postReaction = function (user_id, reaction) {
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -9,8 +9,8 @@ var postReaction = function (to_cat_id, reaction) {
     type: "POST",
     url: "/api/like",
     data: {
-      to_cat_id: to_cat_id,
-      from_user_id: from_user_id,
+      user_id: user_id,
+      cat_id: from_cat_id,
       reaction: reaction,
     },
     success: function (j_data) {
@@ -20,16 +20,16 @@ var postReaction = function (to_cat_id, reaction) {
 }
 $("#tinderslide").jTinder({
   onDislike: function (item) {
-    currentCatIndex++;
-    checkCatNum();
-    var to_cat_id = item[0].dataset.cat_id;
-    postReaction(to_cat_id, 'dislike');
+    currentUserIndex++;
+    checkUserNum();
+    var user_id = item[0].dataset.user_id;
+    postReaction(user_id, 'dislike');
   },
   onLike: function (item) {
-    currentCatIndex++;
-    checkCatNum();
-    var to_cat_id = item[0].dataset.cat_id;
-    postReaction(to_cat_id, 'like');
+    currentUserIndex++;
+    checkUserNum();
+    var user_id = item[0].dataset.user_id;
+    postReaction(user_id, 'like');
   },
   animationRevertSpeed: 200,
   animationSpeed: 400,
@@ -42,10 +42,10 @@ $('.actions .like, .actions .dislike').click(function (e) {
   $("#tinderslide").jTinder($(this).attr('class'));
 });
 
-function checkCatNum() {
-  // スワイプする猫の数とスワイプした回数が同じになればaddClassする
-  if (currentCatIndex === catsNum) {
-    $(".noCat").addClass("is-active");
+function checkUserNum() {
+  // スワイプするユーザーの数とスワイプした回数が同じになればaddClassする
+  if (currentUserIndex === usersNum) {
+    $(".noUser").addClass("is-active");
     $("#actionBtnArea").addClass("is-none");
     return;
   }

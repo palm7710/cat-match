@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Cat;
 use App\Models\Reaction;
 use Illuminate\Support\Facades\Log;
 
@@ -12,27 +10,36 @@ class ReactionController extends Controller
 {
     public function create(Request $request)
     {
-        Log::debug($request);
+        Log::debug('Received create request:', $request->all());
 
-        $to_cat_id = $request->to_cat_id;
-        $like_status = $request->reaction;
-        $from_user_id = $request->from_user_id;
+        $cat_id = $request->input('cat_id');
+        $user_id = $request->input('user_id');
+        $like_status = $request->input('reaction');
+
+        Log::debug('cat_id: ' . $cat_id);
+        Log::debug('user_id: ' . $user_id);
 
         $status = $like_status === 'like' ? 1 : 0;
 
-        $checkReaction = Reaction::where([
-            ['to_cat_id', $to_cat_id],
-            ['from_user_id', $from_user_id]
-        ])->get();
+        $checkReaction = Reaction::where('cat_id', $cat_id)
+                                  ->where('user_id', $user_id)
+                                  ->first();
 
-        if ($checkReaction->isEmpty()) {
+        if (!$checkReaction) {
+            Log::debug('No existing reaction found, creating new one.');
+
             $reaction = new Reaction();
-
-            $reaction->to_cat_id = $to_cat_id;
-            $reaction->from_user_id = $from_user_id;
+            $reaction->cat_id = $cat_id;
+            $reaction->user_id = $user_id;
             $reaction->status = $status;
 
             $reaction->save();
+
+            Log::info('Reaction saved successfully.');
+        } else {
+            Log::info('Reaction already exists.');
         }
+
+        return response()->json(['success' => true]);
     }
 }

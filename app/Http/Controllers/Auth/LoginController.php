@@ -11,25 +11,13 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/user-home';
+    protected function redirectTo()
+    {
+        return Auth::check() && Auth::user()->isCat() ? '/cat-home' : '/user-home';
+    }
 
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
-    }
-
-    protected function redirectTo()
-    {
-        if (Auth::check() && Auth::user()->isCat()) {
-            return '/cat-home';
-        }
-        
-        return '/user-home';
-    }
-
-    public function showLoginForm()
-    {
-        return view('auth.login');
     }
 }

@@ -15,21 +15,21 @@ class MatchingController extends Controller
     {
         // 自分がいいねした保護猫のIDを取得
         $liked_cat_ids = Reaction::where([
-            ['from_user_id', Auth::id()],
+            ['user_id', Auth::id()],
             ['status', Status::LIKE]
-        ])->pluck('to_cat_id');
+        ])->pluck('cat_id');
 
         // いいねされた自分のID
-        $cats_that_liked_me_ids = Reaction::whereIn('from_user_id', $liked_cat_ids)
+        $cats_that_liked_me_ids = Reaction::whereIn('cat_id', $liked_cat_ids)
             ->where('status', Status::LIKE)
-            ->where('to_cat_id', Auth::id())
-            ->pluck('from_user_id');
+            ->where('cat_id', '!=', null)
+            ->pluck('user_id');
 
         // マッチしている保護猫の情報を取得
         $matching_cats = Cat::whereIn('id', $cats_that_liked_me_ids)->get();
-        $catsCount = count($matching_cats);  // ここでカウントを取得
+        $catsCount = count($matching_cats);
 
-        return view('user.matching', compact('matching_cats', 'catsCount'));
+        return view('users.matching', compact('matching_cats', 'catsCount'));
     }
 
     // 保護猫側のマッチングページ
@@ -37,19 +37,20 @@ class MatchingController extends Controller
     {
         // 自分（保護猫）が飼ってほしいと思っているユーザー
         $liked_user_ids = Reaction::where([
-            ['from_user_id', Auth::id()],
+            ['cat_id', Auth::id()],
             ['status', Status::LIKE]
-        ])->pluck('to_user_id');
+        ])->pluck('user_id');
 
         // いいねされた自分のID
-        $users_that_liked_me_ids = Reaction::whereIn('to_user_id', $liked_user_ids)
+        $users_that_liked_me_ids = Reaction::whereIn('user_id', $liked_user_ids)
             ->where('status', Status::LIKE)
-            ->pluck('from_user_id');
+            ->where('user_id', '!=', null)
+            ->pluck('cat_id');
 
         // マッチしているユーザーの情報を取得
         $matching_users = User::whereIn('id', $users_that_liked_me_ids)->get();
         $match_users_count = count($matching_users);
 
-        return view('cat.matching', compact('matching_users', 'match_users_count'));
+        return view('cats.matching', compact('matching_users', 'match_users_count'));
     }
 }
