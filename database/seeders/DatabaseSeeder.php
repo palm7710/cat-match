@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             CatsTableSeeder::class,
             ReactionsTableSeeder::class,
+            // TestDataSeeder::class,
         ]);
     }
 }

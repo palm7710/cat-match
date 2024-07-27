@@ -25,21 +25,10 @@ class ReactionsTableSeeder extends Seeder
                 'status' => 1,
             ],
             [
-                'cat_id' => 1,
-                'user_id' => 1,
-                'status' => 1,
-            ],
-            [
                 'cat_id' => 2,
-                'user_id' => 1,
-                'status' => 1,
-            ],
-            [
-                'cat_id' => 1,
                 'user_id' => 2,
                 'status' => 1,
             ],
         ]);
     }
 }
-

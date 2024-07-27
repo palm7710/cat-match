@@ -10,26 +10,17 @@ class Reaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'to_user_id', 'from_cat_id', 'to_cat_id', 'from_user_id', 'status',
+        'cat_id', 'user_id', 'status',
     ];
 
-    public function toCat()
+    // 必要に応じてリレーションを追加
+    public function cat()
     {
-        return $this->belongsTo(Cat::class, 'to_cat_id');
+        return $this->belongsTo(Cat::class);
     }
 
-    public function fromUser()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'from_user_id');
-    }
-
-    public function toUser()
-    {
-        return $this->belongsTo(User::class, 'to_user_id');
-    }
-
-    public function fromCat()
-    {
-        return $this->belongsTo(Cat::class, 'from_cat_id');
+        return $this->belongsTo(User::class);
     }
 }
