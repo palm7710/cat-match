@@ -48,3 +48,7 @@ Route::get('/user-matching', [MatchingController::class, 'index'])->name('user.m
 Route::get('/cat-matching', [MatchingController::class, 'catIndex'])->name('cat.matching');
 
 Route::post('/api/like', [ReactionController::class, 'create']);
+
+Route::group(['prefix' => 'chat', 'middleware' => 'auth'], function () {
+    Route::post('show', [App\Http\Controllers\ChatController::class, 'show'])->name('chat.show');
+});

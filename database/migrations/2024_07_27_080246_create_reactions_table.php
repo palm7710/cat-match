@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ class CreateReactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('cat_id');
             $table->unsignedBigInteger('user_id');
-            $table->boolean('status');
+            $table->integer('status')->nullable(); // 'status'カラムをinteger型に変更し、NULLを許可
             $table->timestamps();
 
             $table->foreign('cat_id')->references('id')->on('cats')->onDelete('cascade');

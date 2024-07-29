@@ -16,6 +16,11 @@
           <div class="matchingPerson">
           <div class="matchingPerson_img"><img src="/storage/images/{{ $cat->img_name }}"></div>
             <div class="matchingPerson_name">{{ $cat->name }}</div>
+            <form method="POST" action="{{ route('chat.show') }}">
+            @csrf
+              <input name="user_id" type="hidden" value="{{$cat->id}}">
+              <button type="submit" class="chatForm_btn">チャットを開く</button>
+            </form>
           </div>
         @endforeach
       </div>
